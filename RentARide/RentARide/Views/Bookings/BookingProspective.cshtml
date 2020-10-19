@@ -1,0 +1,114 @@
+﻿@model RentARide.Models.Booking
+
+@{
+    ViewBag.Title = "BookingsProspective";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BookingsProspective</h2>
+
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <table>
+        <tr class="coordinates"><td class="description">Branch1</td><td class="latitude">-37.3456</td><td class="longitude">144.9875</td></tr>
+    </table>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Model)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.Manufacturer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Manufacturer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Year)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Car.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Price)
+        </dd>
+        @using (Html.BeginForm("Make", "Bookings", FormMethod.Post))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Branch.Name)
+            </dt>
+
+            <dd>
+                @Html.DropDownList("PickupBranch", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PickupBranch, "", new { @class = "text-danger" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Branch1.Name)
+            </dt>
+
+            <dd>
+                @Html.DropDownList("DropBranch", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DropBranch, "", new { @class = "text-danger" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd>
+                @Html.TextBoxFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+            </dd>
+
+
+
+
+            <button type="submit">Book</button>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BookingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section Scripts {
+
+    @Scripts.Render("~/bundles/mapbox")
+}

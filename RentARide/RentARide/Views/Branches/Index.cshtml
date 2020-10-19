@@ -1,0 +1,90 @@
+﻿@model IEnumerable<RentARide.Models.Branch>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div id='map' style='height: 300px;'></div>
+@if (User.Identity.IsAuthenticated && this.User.IsInRole("Adminstrator"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>}
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+
+            <tr class="coordinates">
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td class="longitude">
+                    @Html.DisplayFor(modelItem => item.Longitude)
+                </td>
+                <td class="latitude">
+                    @Html.DisplayFor(modelItem => item.Latitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BranchId })}|
+                    @Html.ActionLink("Details", "Details", new { id = item.BranchId }) |
+                    @if (User.Identity.IsAuthenticated && this.User.IsInRole("Admin")) {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BranchId })}
+                </td>
+            </tr>
+
+        </tbody>
+    }
+
+</table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    @Scripts.Render("~/bundles/mapbox")
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });</script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />

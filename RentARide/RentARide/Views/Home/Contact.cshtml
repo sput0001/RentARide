@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<div style="padding:0px 20px 20px 20px" id="hi">
+    <h2>@ViewBag.Title.</h2>
+
+    <address>
+        Shriya Reddy<br />
+        11 Dudley St., Caulfield East, VIC 3145<br />
+        <abbr title="Phone">P:</abbr>
+        047.067.5405
+    </address>
+
+    <a>@Html.ActionLink("Print Page", "ExportPDF", "Home")</a>
+
+    <address>
+        <strong>@Html.ActionLink("Send Email", "Send_Email", "Home")</strong>
+    </address>
+</div>
+
